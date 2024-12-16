@@ -371,6 +371,7 @@ namespace ironballs
         private void HandleTouchEnd(VariantMap args)
         {
             _touchBegin = Vector2.ZERO;
+            _touchDebug = Vector3.Zero;
             if (_nowPlayer && args[E.TouchEnd.Y].Int < 200) Hit();
         }
 
@@ -380,7 +381,7 @@ namespace ironballs
             if (_nowPlayer) 
             {
                 _touchDebug = new Vector3(args[E.TouchMove.Y].Int, 0, -args[E.TouchMove.X].Int);
-                _arrowNode.Position += _touchDebug*0.0001f;
+                _arrowNode.Position += _touchDebug*0.00001f;
             }
         }
 
