@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <resource _id="1">
 	<attributes>
-		<attribute name="Next Node ID" type="Int" value="38" />
-		<attribute name="Next Component ID" type="Int" value="105" />
+		<attribute name="Next Node ID" type="Int" value="42" />
+		<attribute name="Next Component ID" type="Int" value="117" />
 	</attributes>
 	<components>
 		<component _id="1" _typeName="Octree" />
@@ -561,6 +561,74 @@
 					</components>
 				</node>
 			</nodes>
+		</node>
+		<node _id="38">
+			<attributes>
+				<attribute name="Name" type="String" value="RaycastObstacle" />
+				<attribute name="Position" type="Vector3" value="-3 0 3" />
+				<attribute name="Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
+				<attribute name="Scale" type="Vector3" value="1 1 2" />
+			</attributes>
+			<components>
+				<component _id="109" _typeName="CollisionShape" />
+				<component _id="110" _typeName="RigidBody">
+					<attributes>
+						<attribute name="Physics Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
+						<attribute name="Physics Position" type="Vector3" value="-3 0 3" />
+					</attributes>
+				</component>
+			</components>
+		</node>
+		<node _id="39">
+			<attributes>
+				<attribute name="Name" type="String" value="RaycastObstacle" />
+				<attribute name="Position" type="Vector3" value="3 0 3" />
+				<attribute name="Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
+				<attribute name="Scale" type="Vector3" value="2 1 1" />
+			</attributes>
+			<components>
+				<component _id="111" _typeName="CollisionShape" />
+				<component _id="112" _typeName="RigidBody">
+					<attributes>
+						<attribute name="Physics Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
+						<attribute name="Physics Position" type="Vector3" value="3 0 3" />
+					</attributes>
+				</component>
+			</components>
+		</node>
+		<node _id="40">
+			<attributes>
+				<attribute name="Name" type="String" value="RaycastObstacle" />
+				<attribute name="Position" type="Vector3" value="3 0 -3" />
+				<attribute name="Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
+				<attribute name="Scale" type="Vector3" value="1 1 2" />
+			</attributes>
+			<components>
+				<component _id="113" _typeName="CollisionShape" />
+				<component _id="114" _typeName="RigidBody">
+					<attributes>
+						<attribute name="Physics Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
+						<attribute name="Physics Position" type="Vector3" value="3 0 -3" />
+					</attributes>
+				</component>
+			</components>
+		</node>
+		<node _id="41">
+			<attributes>
+				<attribute name="Name" type="String" value="RaycastObstacle" />
+				<attribute name="Position" type="Vector3" value="-3 0 -3" />
+				<attribute name="Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
+				<attribute name="Scale" type="Vector3" value="2 1 1" />
+			</attributes>
+			<components>
+				<component _id="115" _typeName="CollisionShape" />
+				<component _id="116" _typeName="RigidBody">
+					<attributes>
+						<attribute name="Physics Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
+						<attribute name="Physics Position" type="Vector3" value="-3 0 -3" />
+					</attributes>
+				</component>
+			</components>
 		</node>
 	</nodes>
 	<auxiliary />

@@ -35,6 +35,8 @@ namespace ironballs
         private Team _activeTeam = null;
         private bool _nowPlayer = true;
 
+        private Vector2 _touchBegin = new Vector2 (0, 0);
+        private Vector3 _touchDebug = new Vector3 (0, 0, 0);
 
         public MyState(UrhoPluginApplication app) : base(app.Context)
         {
@@ -158,6 +160,8 @@ namespace ironballs
             ImGui.Text(EndPosition().ToString());
             ImGui.Text(_selectedBall.Position.ToString());
             ImGui.Text(_arrowNode.Position.ToString());
+            ImGui.Text(_touchBegin.ToString());
+            ImGui.Text(_touchDebug.ToString());
             ImGui.End();
         }
 
@@ -358,23 +362,32 @@ namespace ironballs
             _arrowNode.Direction = new Vector3 (_arrowNode.Position.X - _selectedBall.Position.X, 0, _arrowNode.Position.Z - _selectedBall.Position.Z).Normalized;
         }
 
+        private void HandleTouchBegin(VariantMap args)
+        {
+            _touchBegin = new Vector2(args[E.TouchBegin.X].Int, args[E.TouchBegin.Y].Int);
+        }
+
 
         private void HandleTouchEnd(VariantMap args)
         {
+            _touchBegin = Vector2.ZERO;
             if (_nowPlayer && args[E.TouchEnd.Y].Int < 200) Hit();
         }
 
         private void HandleTouchMove(VariantMap args)
         {
+            
             if (_nowPlayer) 
             {
-                _arrowNode.Position += new Vector3(args[E.TouchMove.Y].Int, 0, -args[E.TouchMove.X].Int)*0.1f;
+                _touchDebug = new Vector3(args[E.TouchMove.Y].Int - _touchBegin.X, 0, -args[E.TouchMove.X].Int - _touchBegin.Y);
+                _arrowNode.Position += _touchDebug*0.001f;
             }
         }
 
         public override void Activate(StringVariantMap bundle)
         {
             SubscribeToEvent(E.KeyUp, HandleKeyUp);
+            SubscribeToEvent(E.TouchBegin, HandleTouchBegin);
             SubscribeToEvent(E.TouchEnd, HandleTouchEnd);
             SubscribeToEvent(E.TouchMove, HandleTouchMove);
             _scene.IsUpdateEnabled = true;
@@ -385,6 +398,7 @@ namespace ironballs
         public override void Deactivate()
         {
             _scene.IsUpdateEnabled = false;
+            UnsubscribeFromEvent(E.TouchBegin);
             UnsubscribeFromEvent(E.TouchEnd);
             UnsubscribeFromEvent(E.TouchMove);
             base.Deactivate();
