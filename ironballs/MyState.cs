@@ -379,8 +379,8 @@ namespace ironballs
             
             if (_nowPlayer) 
             {
-                _touchDebug = new Vector3(args[E.TouchMove.Y].Int - _touchBegin.X, 0, -args[E.TouchMove.X].Int - _touchBegin.Y);
-                _arrowNode.Position += _touchDebug*0.001f;
+                _touchDebug = new Vector3(args[E.TouchMove.Y].Int, 0, -args[E.TouchMove.X].Int);
+                _arrowNode.Position += _touchDebug*0.0001f;
             }
         }
 
