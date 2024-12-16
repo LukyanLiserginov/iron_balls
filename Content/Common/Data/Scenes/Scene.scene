@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <resource _id="1">
 	<attributes>
-		<attribute name="Next Node ID" type="Int" value="42" />
-		<attribute name="Next Component ID" type="Int" value="117" />
+		<attribute name="Next Node ID" type="Int" value="43" />
+		<attribute name="Next Component ID" type="Int" value="124" />
 	</attributes>
 	<components>
 		<component _id="1" _typeName="Octree" />
@@ -626,6 +626,29 @@
 					<attributes>
 						<attribute name="Physics Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
 						<attribute name="Physics Position" type="Vector3" value="-3 0 -3" />
+					</attributes>
+				</component>
+			</components>
+		</node>
+		<node _id="42">
+			<attributes>
+				<attribute name="Name" type="String" value="Cube" />
+				<attribute name="Position" type="Vector3" value="0 0.36 0" />
+				<attribute name="Scale" type="Vector3" value="0.2 0.2 0.2" />
+			</attributes>
+			<components>
+				<component _id="121" _typeName="RigidBody">
+					<attributes>
+						<attribute name="Physics Position" type="Vector3" value="0 0.36 0" />
+						<attribute name="Mass" type="Float" value="2.000000" />
+						<attribute name="Restitution" type="Float" value="0.950000" />
+					</attributes>
+				</component>
+				<component _id="122" _typeName="CollisionShape" />
+				<component _id="123" _typeName="StaticModel">
+					<attributes>
+						<attribute name="Model" type="ResourceRef" value="Model;Models/Box.mdl" />
+						<attribute name="Material" type="ResourceRefList" value="Material;Materials/box.material" />
 					</attributes>
 				</component>
 			</components>
