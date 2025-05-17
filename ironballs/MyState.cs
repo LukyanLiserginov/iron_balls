@@ -20,6 +20,8 @@ namespace ironballs
         private Random _random = new Random();
         private Node _selectedBall;
         private Node _lastBall;
+        private Node _cube;
+        private RigidBody _cubeRb;
         private Node _trajectory = null;
         private CustomGeometry _customGeometry = null;
 
@@ -27,6 +29,8 @@ namespace ironballs
         private float _inertia = 0.8f;
         private float _speed = 0.02f;
         private int _hitTimer = 0;
+        private float _ballStr = 0.5f;
+        private bool _strUp = true;
 
         private Team team1 = new Team("team1");
         private Team team2 = new Team("team2");
@@ -51,6 +55,8 @@ namespace ironballs
             _selectNode = _scene.FindChild("SelectNode", true);
             _selectedBall = _scene.FindChild("ball1", true);
             _lastBall = _selectedBall;
+            _cube = _scene.FindChild("Cube", true);
+            _cubeRb = _cube.FindComponent<RigidBody>();
             var temp = _scene.GetChildren();
             foreach (var child in temp)
             {
@@ -140,7 +146,16 @@ namespace ironballs
                 ArrowDir();
                 ShowTrajectory();
 
-                if (_inputMap.Evaluate("Use") > 0.5f && _hitTimer < 1) Hit();
+                if (_inputMap.Evaluate("Use") > 0.5f && _hitTimer < 1 && _strUp) _ballStr += 0.01f;
+                if (_inputMap.Evaluate("Use") > 0.5f && _hitTimer < 1 && !_strUp) _ballStr += -0.01f;
+                else if (_inputMap.Evaluate("Use") < 0.5f && _hitTimer < 1 && _ballStr > 0.5f)
+                {
+                    _strUp = true;
+                    Hit(_ballStr);
+                }
+
+                if (_strUp && _ballStr > 2.5f) _strUp = false;
+                else if (!_strUp && _ballStr < 0.5f) _strUp = true;
 
             }
             else
@@ -160,6 +175,8 @@ namespace ironballs
             ImGui.Text(EndPosition().ToString());
             ImGui.Text(_selectedBall.Position.ToString());
             ImGui.Text(_arrowNode.Position.ToString());
+            ImGui.Text(_ballStr.ToString());
+            ImGui.ProgressBar((_ballStr-0.5f)/2);
             ImGui.Text(_touchBegin.ToString());
             ImGui.Text(_touchDebug.ToString());
             ImGui.End();
@@ -167,6 +184,8 @@ namespace ironballs
 
         public void NextPlayer()
         {
+            if (_cubeRb.Mass < 1 && team1.Balls.Count + team2.Balls.Count + team3.Balls.Count + team4.Balls.Count < 5)
+                _cubeRb.Mass = 2;
             //t1
             if (_activeTeam == team1)
             {
@@ -274,12 +293,13 @@ namespace ironballs
             ArrowDir();
         }
 
-        public void Hit()
+        public void Hit(float str = 1.15f)
         {
             var body = _selectedBall.GetComponent<RigidBody>();
-            body.ApplyImpulse(( _selectedBall.Position - _arrowNode.Position).Normalized * 1.15f);
+            body.ApplyImpulse(( _selectedBall.Position - _arrowNode.Position).Normalized * str);
             _lastBall = _selectedBall;
             _hitTimer = 300;
+            _ballStr = 0.5f;
         }
 
         public void ShowTrajectory()

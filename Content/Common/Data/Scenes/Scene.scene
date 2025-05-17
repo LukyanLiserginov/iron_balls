@@ -640,7 +640,6 @@
 				<component _id="121" _typeName="RigidBody">
 					<attributes>
 						<attribute name="Physics Position" type="Vector3" value="0 0.36 0" />
-						<attribute name="Mass" type="Float" value="2.000000" />
 						<attribute name="Restitution" type="Float" value="0.950000" />
 					</attributes>
 				</component>

@@ -38,7 +38,7 @@ namespace ironballs
             _textNode = _scene.FindChild("Ground Plane", true).FindChild("PlayersText", true);
         }
 
-
+        
 
         public override void Update(float timeStep)
         {
@@ -84,6 +84,7 @@ namespace ironballs
             SubscribeToEvent(E.KeyUp, HandleKeyUp);
             SubscribeToEvent(E.TouchEnd, HandleTouchEnd);
             _scene.IsUpdateEnabled = true;
+            _game = false;
 
             base.Activate(bundle);
         }
