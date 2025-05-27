@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <resource _id="1">
 	<attributes>
-		<attribute name="Next Node ID" type="Int" value="43" />
-		<attribute name="Next Component ID" type="Int" value="124" />
+		<attribute name="Next Node ID" type="Int" value="49" />
+		<attribute name="Next Component ID" type="Int" value="144" />
 	</attributes>
 	<components>
 		<component _id="1" _typeName="Octree" />
@@ -76,6 +76,8 @@
 		<node _id="2">
 			<attributes>
 				<attribute name="Name" type="String" value="Skybox" />
+				<attribute name="Rotation" type="Quaternion" value="0.945519 0 0 -0.325568" />
+				<attribute name="Scale" type="Vector3" value="3.19 1 1" />
 			</attributes>
 			<components>
 				<component _id="3" _typeName="Skybox">
@@ -177,8 +179,8 @@
 		<node _id="14">
 			<attributes>
 				<attribute name="Name" type="String" value="CameraNode" />
-				<attribute name="Position" type="Vector3" value="0.36 5.750593 0" />
-				<attribute name="Rotation" type="Quaternion" value="0.477716 0.521336 0.477713 -0.521332" />
+				<attribute name="Position" type="Vector3" value="-2.61572 4.643947 0" />
+				<attribute name="Rotation" type="Quaternion" value="-0.612378 -0.353555 -0.612367 0.353552" />
 			</attributes>
 			<components>
 				<component _id="32" _typeName="Camera" />
@@ -504,6 +506,7 @@
 		</node>
 		<node _id="31">
 			<attributes>
+				<attribute name="Is Enabled" type="Bool" value="false" />
 				<attribute name="Name" type="String" value="table0" />
 			</attributes>
 			<components>
@@ -532,6 +535,7 @@
 			<nodes>
 				<node _id="32">
 					<attributes>
+						<attribute name="Is Enabled" type="Bool" value="false" />
 						<attribute name="Name" type="String" value="izgorod" />
 						<attribute name="Scale" type="Vector3" value="0.3048 0.3048 0.3048" />
 					</attributes>
@@ -547,6 +551,7 @@
 				</node>
 				<node _id="33">
 					<attributes>
+						<attribute name="Is Enabled" type="Bool" value="false" />
 						<attribute name="Name" type="String" value="bereza" />
 						<attribute name="Scale" type="Vector3" value="0.3048 0.3048 0.3048" />
 					</attributes>
@@ -554,7 +559,7 @@
 						<component _id="92" _typeName="StaticModel">
 							<attributes>
 								<attribute name="Model" type="ResourceRef" value="Model;Models/my/table0.glb.d/Models/ber.mdl" />
-								<attribute name="Material" type="ResourceRefList" value="Material;Models/my/table0.glb.d/Materials/berz_Lit.xml" />
+								<attribute name="Material" type="ResourceRefList" value="Material;Models/my/table_24.05.25.glb.d/Materials/Ceiling Tile 600 x 600_Lit.xml" />
 								<attribute name="Cast Shadows" type="Bool" value="true" />
 							</attributes>
 						</component>
@@ -634,11 +639,13 @@
 			<attributes>
 				<attribute name="Name" type="String" value="Cube" />
 				<attribute name="Position" type="Vector3" value="0 0.36 0" />
-				<attribute name="Scale" type="Vector3" value="0.2 0.2 0.2" />
+				<attribute name="Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
+				<attribute name="Scale" type="Vector3" value="0.21 0.21 0.21" />
 			</attributes>
 			<components>
 				<component _id="121" _typeName="RigidBody">
 					<attributes>
+						<attribute name="Physics Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
 						<attribute name="Physics Position" type="Vector3" value="0 0.36 0" />
 						<attribute name="Restitution" type="Float" value="0.950000" />
 					</attributes>
@@ -651,6 +658,66 @@
 					</attributes>
 				</component>
 			</components>
+		</node>
+		<node _id="46">
+			<attributes>
+				<attribute name="Name" type="String" value="table_27.05.2025" />
+			</attributes>
+			<components>
+				<component _id="141" _typeName="CollisionShape">
+					<attributes>
+						<attribute name="Shape Type" type="String" value="TriangleMesh" />
+						<attribute name="Size" type="Vector3" value="0.305 0.305 0.305" />
+						<attribute name="Model" type="ResourceRef" value="Model;Models/my/table_27.05.2025.glb.d/Models/Изгородь.mdl" />
+					</attributes>
+				</component>
+				<component _id="142" _typeName="CollisionShape">
+					<attributes>
+						<attribute name="Shape Type" type="String" value="TriangleMesh" />
+						<attribute name="Size" type="Vector3" value="0.305 0.305 0.305" />
+						<attribute name="Model" type="ResourceRef" value="Model;Models/my/table_27.05.2025.glb.d/Models/Ceiling Tile 600 x 600.mdl" />
+					</attributes>
+				</component>
+				<component _id="143" _typeName="RigidBody">
+					<attributes>
+						<attribute name="Friction" type="Float" value="0.100000" />
+						<attribute name="Rolling Friction" type="Float" value="0.050000" />
+						<attribute name="Restitution" type="Float" value="0.900000" />
+					</attributes>
+				</component>
+			</components>
+			<nodes>
+				<node _id="47">
+					<attributes>
+						<attribute name="Name" type="String" value="Ceiling Tile 600 x 600" />
+						<attribute name="Scale" type="Vector3" value="0.3048 0.3048 0.3048" />
+					</attributes>
+					<components>
+						<component _id="139" _typeName="StaticModel">
+							<attributes>
+								<attribute name="Model" type="ResourceRef" value="Model;Models/my/table_27.05.2025.glb.d/Models/Ceiling Tile 600 x 600.mdl" />
+								<attribute name="Material" type="ResourceRefList" value="Material;Models/my/table_27.05.2025.glb.d/Materials/Ceiling Tile 600 x 600_Lit.xml" />
+								<attribute name="Cast Shadows" type="Bool" value="true" />
+							</attributes>
+						</component>
+					</components>
+				</node>
+				<node _id="48">
+					<attributes>
+						<attribute name="Name" type="String" value="Изгородь" />
+						<attribute name="Scale" type="Vector3" value="0.3048 0.3048 0.3048" />
+					</attributes>
+					<components>
+						<component _id="140" _typeName="StaticModel">
+							<attributes>
+								<attribute name="Model" type="ResourceRef" value="Model;Models/my/table_27.05.2025.glb.d/Models/Изгородь.mdl" />
+								<attribute name="Material" type="ResourceRefList" value="Material;Models/my/table_27.05.2025.glb.d/Materials/Изгородь_Lit.xml" />
+								<attribute name="Cast Shadows" type="Bool" value="true" />
+							</attributes>
+						</component>
+					</components>
+				</node>
+			</nodes>
 		</node>
 	</nodes>
 	<auxiliary />

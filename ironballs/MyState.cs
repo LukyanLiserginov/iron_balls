@@ -184,8 +184,27 @@ namespace ironballs
 
         public void NextPlayer()
         {
-            if (_cubeRb.Mass < 1 && team1.Balls.Count + team2.Balls.Count + team3.Balls.Count + team4.Balls.Count < 5)
+            int c = 0;
+            Team t = null;
+            if (team1.Balls.Count > 0) 
+            {
+                c++;
+                t = team1;
+            }
+            if (team2.Balls.Count > 0) { c++; t = team2; }
+            if (team3.Balls.Count > 0) { c++; t = team3; }
+            if (team4.Balls.Count > 0) {c++; t = team4; }
+            if (c < 2) 
+            { 
+                System.Console.WriteLine(t.ToString() + " is a winner"); 
+                _app.HandleBackKey();
+                return;
+            }
+
+
+            if (_cubeRb.Mass < 1 && team1.Balls.Count + team2.Balls.Count + team3.Balls.Count + team4.Balls.Count < 8)
                 _cubeRb.Mass = 2;
+
             //t1
             if (_activeTeam == team1)
             {
@@ -203,7 +222,7 @@ namespace ironballs
                     else
                     {
                         _nowPlayer = false;
-                        AiAroowPos();
+                        AiArrowPos();
                     }
                 }
                 else NextPlayer();
@@ -247,7 +266,7 @@ namespace ironballs
                     else
                     {
                         _nowPlayer = false;
-                        AiAroowPos();
+                        AiDsPos();
                     }
                 }
                 else NextPlayer();
@@ -275,7 +294,7 @@ namespace ironballs
             }
         }
 
-        public void AiAroowPos()
+        public void AiArrowPos()
         {
             var v = new Vector3(_selectedBall.Position.X * 2, 0.25f, _selectedBall.Position.Z * 2);
             _arrowNode.Position = v;
@@ -292,8 +311,65 @@ namespace ironballs
             _arrowNode.Position = new Vector3(0, 0.25f, 0);
             ArrowDir();
         }
+        public void AiDsPos()
+        {
+            Vector3 ballPos = _selectedBall.Position;
+            Vector3 toCenter = -ballPos;  // Вектор от шара к центру
+            float distanceToCenter = toCenter.Length;
 
-        public void Hit(float str = 1.15f)
+            // Радиусы "опасных зон" (лунка + радиус шара)
+            float centerHoleSafeRadius = 0.1f + 0.075f;  // 0.175f
+            float cornerHoleSafeRadius = 0.2f + 0.075f;  // 0.275f
+
+            // Проверяем, близко ли шар к центру или углам
+            bool isNearCenter = distanceToCenter < centerHoleSafeRadius;
+            bool isNearCorner = Math.Abs(ballPos.X) > 1.5f - cornerHoleSafeRadius &&
+                                Math.Abs(ballPos.Z) > 1.5f - cornerHoleSafeRadius;
+
+            Vector3 pushDirection;
+
+            if (isNearCenter)
+            {
+                // Касательная к центральной лунке (перпендикулярно вектору к центру)
+                pushDirection = new Vector3(-toCenter.Z, 0, toCenter.X);
+                pushDirection.Normalize();  // Нормализуем вектор
+            }
+            else if (isNearCorner)
+            {
+                // Толкаем вдоль ближайшей стенки (по оси X или Z)
+                if (Math.Abs(ballPos.X) > Math.Abs(ballPos.Z))
+                {
+                    pushDirection = new Vector3(0, 0, Math.Sign(ballPos.Z));
+                }
+                else
+                {
+                    pushDirection = new Vector3(Math.Sign(ballPos.X), 0, 0);
+                }
+                // Нормализация не нужна, так как направление уже единичное (0,0,±1) или (±1,0,0)
+            }
+            else
+            {
+                // Толкаем "почти в центр", но с минимальным отклонением (касательная к малой окружности)
+                Vector3 tangent = new Vector3(-toCenter.Z, 0, toCenter.X);
+                tangent.Normalize();  // Нормализуем касательную
+
+                // Комбинируем направление к центру и касательную (с коэффициентом отклонения 0.1f)
+                pushDirection = new Vector3(
+                    toCenter.X / distanceToCenter + tangent.X * 0.1f,
+                    0,
+                    toCenter.Z / distanceToCenter + tangent.Z * 0.1f
+                );
+                pushDirection.Normalize();  // Нормализуем итоговый вектор
+            }
+
+            // Позиция стрелки (на расстоянии 0.3f от шара)
+            var v = ballPos + pushDirection * 0.3f;
+            v.Y = 0.25f;
+            _arrowNode.Position = v;  
+            ArrowDir();
+        }
+
+        public void Hit(float str = 1.25f)
         {
             var body = _selectedBall.GetComponent<RigidBody>();
             body.ApplyImpulse(( _selectedBall.Position - _arrowNode.Position).Normalized * str);
