@@ -144,6 +144,38 @@
 			}
 		},
 		{
+			"key": "In",
+			"value": {
+				"buttons": [
+					{
+						"button": "L1",
+						"controller": true
+					}
+				],
+				"keys": [
+					{
+						"scancode": "9"
+					}
+				]
+			}
+		},
+		{
+			"key": "Out",
+			"value": {
+				"buttons": [
+					{
+						"button": "R1",
+						"controller": true
+					}
+				],
+				"keys": [
+					{
+						"scancode": "0"
+					}
+				]
+			}
+		},
+		{
 			"key": "Inventory",
 			"value": {
 				"buttons": [

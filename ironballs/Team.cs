@@ -12,9 +12,11 @@ namespace ironballs
         internal bool IsPlayer = false;
         internal bool IsActive = false;
         internal string Name = "team1";
-        internal Team(string name)
+        internal string Description;
+        internal Team(string name, string description)
         {
             Name = name;
+            Description = description;
         }
     }
 }

@@ -32,10 +32,10 @@ namespace ironballs
         private float _ballStr = 0.5f;
         private bool _strUp = true;
 
-        private Team team1 = new Team("team1");
-        private Team team2 = new Team("team2");
-        private Team team3 = new Team("team3");
-        private Team team4 = new Team("team4");
+        private Team team1 = new Team("team1","Игрок 1");
+        private Team team2 = new Team("team2", "Игрок 2");
+        private Team team3 = new Team("team3", "Игрок 3");
+        private Team team4 = new Team("team4", "Игрок 4");
         private Team _activeTeam = null;
         private bool _nowPlayer = true;
 
@@ -115,7 +115,8 @@ namespace ironballs
 
         public override void Update(float timeStep)
         {
-            base.Update(timeStep);
+            if (_inputMap.Evaluate("In") > 0.5f) _cameraNode.Position += _cameraNode.Direction * 0.01f;
+            if (_inputMap.Evaluate("Out") > 0.5f) _cameraNode.Position += _cameraNode.Direction * -0.01f;
             if (_selectedBall!=null)
             {
                 _selectNode.Position = new Vector3(_selectedBall.Position.X, 0.6f, _selectedBall.Position.Z);
@@ -164,21 +165,12 @@ namespace ironballs
             }
 
 
-            //debug
-            ImGui.Begin("Debug");
-            ImGui.Text(_activeTeam.Name);
-            ImGui.Text(_hitTimer.ToString());
-            ImGui.Text("Team 1 count:" + team1.Balls.Count.ToString());
-            ImGui.Text("Team 2 count:" + team2.Balls.Count.ToString());
-            ImGui.Text("Team 3 count:" + team3.Balls.Count.ToString());
-            ImGui.Text("Team 4 count:" + team4.Balls.Count.ToString());
-            ImGui.Text(EndPosition().ToString());
-            ImGui.Text(_selectedBall.Position.ToString());
-            ImGui.Text(_arrowNode.Position.ToString());
-            ImGui.Text(_ballStr.ToString());
+            //UI
+            ImGui.Begin("Info");
+            ImGui.Text(_activeTeam.Description);
             ImGui.ProgressBar((_ballStr-0.5f)/2);
-            ImGui.Text(_touchBegin.ToString());
-            ImGui.Text(_touchDebug.ToString());
+            //ImGui.Text(_touchBegin.ToString());
+            //ImGui.Text(_touchDebug.ToString());
             ImGui.End();
         }
 
