@@ -127,7 +127,7 @@
 			"value": {
 				"buttons": [
 					{
-						"button": "X",
+						"button": "A",
 						"controller": true
 					}
 				],
@@ -148,7 +148,7 @@
 			"value": {
 				"buttons": [
 					{
-						"button": "L1",
+						"button": "LeftShoulder",
 						"controller": true
 					}
 				],
@@ -164,7 +164,7 @@
 			"value": {
 				"buttons": [
 					{
-						"button": "R1",
+						"button": "RightShoulder",
 						"controller": true
 					}
 				],

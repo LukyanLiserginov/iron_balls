@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <material>
-	<technique name="Techniques/CelOpaque.xml" quality="0" loddistance="0.000000" />
+	<technique name="Techniques/LitOpaque.xml" quality="0" loddistance="0.000000" />
 	<shader vsdefines="PBR " psdefines="PBR " />
 	<parameter name="MatEnvMapColor" value="1 1 1" />
 	<parameter name="NormalScale" value="1.000000" />
-	<parameter name="MatDiffColor" value="0.050633 0 1 1" />
+	<parameter name="MatDiffColor" value="0.746835 0.746835 0.746835 0.152941" />
 	<parameter name="VOffset" value="0 1 0 0" />
 	<parameter name="DielectricReflectance" value="0.500000" />
-	<parameter name="Metallic" value="1.000000" />
-	<parameter name="MatSpecColor" value="0 0 0 1" />
+	<parameter name="Metallic" value="2.630000" />
+	<parameter name="MatSpecColor" value="0 0 0 0.0313726" />
 	<parameter name="MatEmissiveColor" value="0 0 0" />
 	<parameter name="UOffset" value="1 0 0 0" />
 	<parameter name="AlphaCutoff" value="0.500000" />
-	<parameter name="Roughness" value="1.000000" />
+	<parameter name="Roughness" value="0.200000" />
 	<cull value="ccw" />
 	<shadowcull value="ccw" />
 	<fill value="solid" />

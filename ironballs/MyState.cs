@@ -1,6 +1,5 @@
 ﻿using ImGuiNet;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Urho3DNet;
@@ -195,7 +194,10 @@ namespace ironballs
 
 
             if (_cubeRb.Mass < 1 && team1.Balls.Count + team2.Balls.Count + team3.Balls.Count + team4.Balls.Count < 8)
+            {
                 _cubeRb.Mass = 2;
+                _cubeRb.Restitution = 0.95f;
+            }
 
             //t1
             if (_activeTeam == team1)

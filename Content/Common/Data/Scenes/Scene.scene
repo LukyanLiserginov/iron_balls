@@ -66,7 +66,6 @@
 					</value>
 				</attribute>
 				<attribute name="Color Space" type="String" value="HDR Linear" />
-				<attribute name="PCF Kernel Size" type="Int" value="5" />
 			</attributes>
 		</component>
 		<component _id="11" _typeName="ReflectionProbeManager" />
@@ -559,7 +558,7 @@
 						<component _id="92" _typeName="StaticModel">
 							<attributes>
 								<attribute name="Model" type="ResourceRef" value="Model;Models/my/table0.glb.d/Models/ber.mdl" />
-								<attribute name="Material" type="ResourceRefList" value="Material;Models/my/table_24.05.25.glb.d/Materials/Ceiling Tile 600 x 600_Lit.xml" />
+								<attribute name="Material" type="ResourceRefList" value="Material;" />
 								<attribute name="Cast Shadows" type="Bool" value="true" />
 							</attributes>
 						</component>
@@ -647,7 +646,7 @@
 					<attributes>
 						<attribute name="Physics Rotation" type="Quaternion" value="0.92388 0 0.382683 0" />
 						<attribute name="Physics Position" type="Vector3" value="0 0.36 0" />
-						<attribute name="Restitution" type="Float" value="0.950000" />
+						<attribute name="Restitution" type="Float" value="1.050000" />
 					</attributes>
 				</component>
 				<component _id="122" _typeName="CollisionShape" />
