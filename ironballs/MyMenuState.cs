@@ -11,14 +11,21 @@ namespace ironballs
         protected readonly Scene _scene;
         private readonly UrhoPluginApplication _app;
         private readonly Node _cameraNode;
-        private readonly Node _textNode;
+        private readonly Node _playersTextNode;
+        private readonly Node _gameTextNode;
+        private readonly Node _arrowNode;
         private readonly Camera _camera;
         private readonly Viewport _viewport;
         private readonly InputMap _inputMap;
 
         private bool _more = false;
         private bool _less = false;
+        private bool _up = false;
+        private bool _down = false;
         private bool _game = false;
+        private bool _settings = false;
+        private float[] _arrowPosY = new float[] { 2.05f, 0.65f, -0.75f, -2.15f };
+        private int _arrowP = 0;
 
         public MyMenuState(UrhoPluginApplication app) : base(app.Context)
         {
@@ -35,7 +42,9 @@ namespace ironballs
             _viewport.Camera = _camera;
             SetViewport(0, _viewport);
             _inputMap = Context.ResourceCache.GetResource<InputMap>("Input/MoveAndOrbit.inputmap");
-            _textNode = _scene.FindChild("Ground Plane", true).FindChild("PlayersText", true);
+            _gameTextNode = _scene.FindChild("Ground Plane", true).FindChild("GameMode", true);
+            _playersTextNode = _scene.FindChild("Ground Plane", true).FindChild("PlayersText", true);
+            _arrowNode = _scene.FindChild("ArrowNode", true);
         }
 
         
@@ -47,8 +56,11 @@ namespace ironballs
             {
                 if (left != _less)
                 {
-                    MySetup.Players--;
-                    
+                    if (_arrowP == 0)
+                        MySetup.GameMode--;
+                    else if (_arrowP == 1)
+                        MySetup.Players--;
+
                 }
             }
             _less = left;
@@ -57,25 +69,61 @@ namespace ironballs
             {
                 if (right != _more)
                 {
-                    MySetup.Players++;
+                    if (_arrowP == 0)
+                        MySetup.GameMode++;
+                    else if (_arrowP == 1)
+                        MySetup.Players++;
                 }
             }
             _more = right;
-            _textNode.FindComponent<Text3D>().Text = "Players: <" + MySetup.Players + ">";
+            _gameTextNode.FindComponent<Text3D>().Text = "Game: <" + MySetup.GameMode + ">";
+            _playersTextNode.FindComponent<Text3D>().Text = "Players: <" + MySetup.Players + ">";
+
+            var up = _inputMap.Evaluate("Forward") > 0.5f;
+            if (up)
+            {
+                if (up != _up)
+                {
+                    if (_arrowP > 0)
+                    {
+                        _arrowP--;
+                        var pos = _arrowNode.Position;
+                        pos.Y = _arrowPosY[_arrowP]; 
+                        _arrowNode.Position = pos;
+                    }
+                        
+                }
+            }
+            _up = up;
+
+            var down = _inputMap.Evaluate("Back") > 0.5f;
+            if (down)
+            {
+                if (down != _down)
+                {
+                    if (_arrowP < 3)
+                    {
+                        _arrowP++;
+                        var pos = _arrowNode.Position;
+                        pos.Y = _arrowPosY[_arrowP];
+                        _arrowNode.Position = pos;
+                    }
+                        
+
+                }
+            }
+            _down = down;
 
             var game = _inputMap.Evaluate("Use") > 0.5f;
             if (game)
             {
-                if (game != _game)
+                if (game != _game && _arrowP == 3)
                 {
                     _game = game;
                     _app.ToNewGame();
                 }
             }
-            if (_inputMap.Evaluate("Back") > 0.5f)
-            {
-                _app.Quit();
-            }
+           
 
         }
 

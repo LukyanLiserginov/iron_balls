@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <resource _id="1">
 	<attributes>
-		<attribute name="Next Node ID" type="Int" value="12" />
-		<attribute name="Next Component ID" type="Int" value="17" />
+		<attribute name="Next Node ID" type="Int" value="15" />
+		<attribute name="Next Component ID" type="Int" value="29" />
 	</attributes>
 	<components>
 		<component _id="1" _typeName="Octree" />
@@ -132,10 +132,31 @@
 				</component>
 			</components>
 			<nodes>
+				<node _id="12">
+					<attributes>
+						<attribute name="Name" type="String" value="GameMode" />
+						<attribute name="Position" type="Vector3" value="-0.404252 0.00214 0.398427" />
+						<attribute name="Rotation" type="Quaternion" value="0.707107 0.707107 0 0" />
+						<attribute name="Scale" type="Vector3" value="0.25 0.3 0.5" />
+					</attributes>
+					<components>
+						<component _id="20" _typeName="Text3D">
+							<attributes>
+								<attribute name="Font" type="ResourceRef" value="Font;Fonts/ArchivoBlack-Regular.ttf" />
+								<attribute name="Font Size" type="Float" value="48.000000" />
+								<attribute name="Text" type="String" value="Game: &lt;1>" />
+								<attribute name="Snap to Pixels" type="Bool" value="true" />
+								<attribute name="Width" type="Int" value="372" />
+								<attribute name="Text Effect" type="String" value="Shadow" />
+								<attribute name="Stroke Thickness" type="Int" value="2" />
+							</attributes>
+						</component>
+					</components>
+				</node>
 				<node _id="8">
 					<attributes>
 						<attribute name="Name" type="String" value="PlayersText" />
-						<attribute name="Position" type="Vector3" value="-0.404252 0.00214 0.282189" />
+						<attribute name="Position" type="Vector3" value="-0.404252 0.00214 0.2" />
 						<attribute name="Rotation" type="Quaternion" value="0.707107 0.707107 0 0" />
 						<attribute name="Scale" type="Vector3" value="0.25 0.3 0.5" />
 					</attributes>
@@ -153,9 +174,31 @@
 						</component>
 					</components>
 				</node>
+				<node _id="14">
+					<attributes>
+						<attribute name="Name" type="String" value="Settings" />
+						<attribute name="Position" type="Vector3" value="-0.4 0.00214 0" />
+						<attribute name="Rotation" type="Quaternion" value="0.707107 0.707107 0 0" />
+						<attribute name="Scale" type="Vector3" value="0.25 0.3 1" />
+					</attributes>
+					<components>
+						<component _id="23" _typeName="Text3D">
+							<attributes>
+								<attribute name="Font" type="ResourceRef" value="Font;Fonts/ArchivoBlack-Regular.ttf" />
+								<attribute name="Font Size" type="Float" value="48.000000" />
+								<attribute name="Text" type="String" value="Settings" />
+								<attribute name="Snap to Pixels" type="Bool" value="true" />
+								<attribute name="Width" type="Int" value="291" />
+								<attribute name="Text Effect" type="String" value="Shadow" />
+								<attribute name="Stroke Thickness" type="Int" value="2" />
+							</attributes>
+						</component>
+					</components>
+				</node>
 				<node _id="9">
 					<attributes>
-						<attribute name="Position" type="Vector3" value="-0.328384 0.00214 -0.100809" />
+						<attribute name="Name" type="String" value="StartGame" />
+						<attribute name="Position" type="Vector3" value="-0.4 0.00214 -0.2" />
 						<attribute name="Rotation" type="Quaternion" value="0.707107 0.707107 0 0" />
 						<attribute name="Scale" type="Vector3" value="0.25 0.3 1" />
 					</attributes>
@@ -164,22 +207,14 @@
 							<attributes>
 								<attribute name="Font" type="ResourceRef" value="Font;Fonts/ArchivoBlack-Regular.ttf" />
 								<attribute name="Font Size" type="Float" value="48.000000" />
-								<attribute name="Text" type="String" value="Press HIT" />
+								<attribute name="Text" type="String" value="Start game" />
 								<attribute name="Snap to Pixels" type="Bool" value="true" />
-								<attribute name="Width" type="Int" value="340" />
+								<attribute name="Width" type="Int" value="387" />
 								<attribute name="Text Effect" type="String" value="Shadow" />
 								<attribute name="Stroke Thickness" type="Int" value="2" />
 							</attributes>
 						</component>
 					</components>
-				</node>
-				<node _id="10">
-					<attributes>
-						<attribute name="Name" type="String" value="Options" />
-					</attributes>
-					<nodes>
-						<node _id="11" />
-					</nodes>
 				</node>
 			</nodes>
 		</node>
@@ -189,6 +224,22 @@
 			</attributes>
 			<components>
 				<component _id="12" _typeName="Camera" />
+			</components>
+		</node>
+		<node _id="13">
+			<attributes>
+				<attribute name="Name" type="String" value="ArrowNode" />
+				<attribute name="Position" type="Vector3" value="0 2.05 10.04" />
+				<attribute name="Rotation" type="Quaternion" value="-0.5 0.5 0.5 -0.5" />
+				<attribute name="Scale" type="Vector3" value="1.07 0.1 6.91" />
+			</attributes>
+			<components>
+				<component _id="28" _typeName="StaticModel">
+					<attributes>
+						<attribute name="Model" type="ResourceRef" value="Model;Models/Box.mdl" />
+						<attribute name="Material" type="ResourceRefList" value="Material;Materials/ball_c.material" />
+					</attributes>
+				</component>
 			</components>
 		</node>
 	</nodes>

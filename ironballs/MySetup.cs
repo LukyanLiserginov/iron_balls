@@ -7,6 +7,7 @@ namespace ironballs
     internal static class MySetup
     {
         private static int _players;
+        private static int _gameMode = 1;
         internal static int Players
         {
             get { return _players; }
@@ -15,6 +16,16 @@ namespace ironballs
                 if (value < 0) _players = 0;
                 else if (value > 4) _players = 4;
                 else _players = value;
+            }
+        }
+        internal static int GameMode
+        {
+            get { return _gameMode; }
+            set
+            {
+                if (value < 1) _gameMode = 1;
+                else if (value > 2) _gameMode = 2;
+                else _gameMode = value;
             }
         }
     }

@@ -10,7 +10,6 @@ namespace ironballs
     {
         internal List<Node> Balls = new List<Node>();
         internal bool IsPlayer = false;
-        internal bool IsActive = false;
         internal string Name = "team1";
         internal string Description;
         internal Team(string name, string description)

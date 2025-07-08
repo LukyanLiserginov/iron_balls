@@ -128,7 +128,7 @@
 				<component _id="16" _typeName="StaticModel">
 					<attributes>
 						<attribute name="Model" type="ResourceRef" value="Model;Models/Sphere.mdl" />
-						<attribute name="Material" type="ResourceRefList" value="Material;" />
+						<attribute name="Material" type="ResourceRefList" value="Material;Materials/ball_c.material" />
 					</attributes>
 				</component>
 				<component _id="17" _typeName="CollisionShape">
@@ -157,7 +157,7 @@
 				<component _id="24" _typeName="StaticModel">
 					<attributes>
 						<attribute name="Model" type="ResourceRef" value="Model;Models/Sphere.mdl" />
-						<attribute name="Material" type="ResourceRefList" value="Material;Materials/DefaultGrey.xml" />
+						<attribute name="Material" type="ResourceRefList" value="Material;Materials/ball_o.material" />
 					</attributes>
 				</component>
 				<component _id="25" _typeName="CollisionShape">
@@ -245,7 +245,7 @@
 				<component _id="48" _typeName="StaticModel">
 					<attributes>
 						<attribute name="Model" type="ResourceRef" value="Model;Models/Sphere.mdl" />
-						<attribute name="Material" type="ResourceRefList" value="Material;" />
+						<attribute name="Material" type="ResourceRefList" value="Material;Materials/ball_c.material" />
 					</attributes>
 				</component>
 				<component _id="49" _typeName="CollisionShape">
@@ -273,7 +273,7 @@
 				<component _id="51" _typeName="StaticModel">
 					<attributes>
 						<attribute name="Model" type="ResourceRef" value="Model;Models/Sphere.mdl" />
-						<attribute name="Material" type="ResourceRefList" value="Material;Materials/DefaultGrey.xml" />
+						<attribute name="Material" type="ResourceRefList" value="Material;Materials/ball_o.material" />
 					</attributes>
 				</component>
 				<component _id="52" _typeName="CollisionShape">
@@ -385,7 +385,7 @@
 				<component _id="67" _typeName="StaticModel">
 					<attributes>
 						<attribute name="Model" type="ResourceRef" value="Model;Models/Sphere.mdl" />
-						<attribute name="Material" type="ResourceRefList" value="Material;" />
+						<attribute name="Material" type="ResourceRefList" value="Material;Materials/ball_c.material" />
 					</attributes>
 				</component>
 				<component _id="68" _typeName="CollisionShape">
@@ -414,7 +414,7 @@
 				<component _id="70" _typeName="StaticModel">
 					<attributes>
 						<attribute name="Model" type="ResourceRef" value="Model;Models/Sphere.mdl" />
-						<attribute name="Material" type="ResourceRefList" value="Material;Materials/DefaultGrey.xml" />
+						<attribute name="Material" type="ResourceRefList" value="Material;Materials/ball_o.material" />
 					</attributes>
 				</component>
 				<component _id="71" _typeName="CollisionShape">

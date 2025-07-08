@@ -1,5 +1,6 @@
 ﻿using ImGuiNet;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Urho3DNet;
@@ -31,21 +32,26 @@ namespace ironballs
         private float _ballStr = 0.5f;
         private bool _strUp = true;
 
-        private Team team1 = new Team("team1","Игрок 1");
-        private Team team2 = new Team("team2", "Игрок 2");
-        private Team team3 = new Team("team3", "Игрок 3");
-        private Team team4 = new Team("team4", "Игрок 4");
+        private List<Team> _teams = new List<Team>();
+        private Team team1 = new Team("team1","Player 1");
+        private Team team2 = new Team("team2", "Player 2");
+        private Team team3 = new Team("team3", "Player 3");
+        private Team team4 = new Team("team4", "Player 4");
         private Team _activeTeam = null;
         private bool _nowPlayer = true;
 
         private Vector2 _touchBegin = new Vector2 (0, 0);
         private Vector3 _touchDebug = new Vector3 (0, 0, 0);
+        private Vector2 _screenSize;
+        private bool _info = true;
 
         public MyState(UrhoPluginApplication app) : base(app.Context)
         {
+            //mouse mode
             MouseMode = MouseMode.MmFree;
             IsMouseVisible = true;
 
+            //setup scene
             _app = app;
             _scene = Context.CreateObject<Scene>();
             _scene.Load("Scenes/Scene.scene");
@@ -55,7 +61,17 @@ namespace ironballs
             _selectedBall = _scene.FindChild("ball1", true);
             _lastBall = _selectedBall;
             _cube = _scene.FindChild("Cube", true);
-            _cubeRb = _cube.FindComponent<RigidBody>();
+            //crazy cube
+            if (MySetup.GameMode == 1)
+            {
+                _cubeRb = _cube.FindComponent<RigidBody>();
+            }
+            else
+            {
+                _cube.Remove();
+                _cube = null;
+            }
+            //balls to teams
             var temp = _scene.GetChildren();
             foreach (var child in temp)
             {
@@ -64,11 +80,17 @@ namespace ironballs
                 else if (child.Name == "ball3") team3.Balls.Add(child);
                 else if (child.Name == "ball4") team4.Balls.Add(child);
             }
+            _teams.Add(team1);
+            _teams.Add(team2);
+            _teams.Add(team3);
+            _teams.Add(team4);
+
             _camera = _cameraNode.GetComponent<Camera>();
             _viewport = Context.CreateObject<Viewport>();
             _viewport.Scene = _scene;
             _viewport.Camera = _camera;
             SetViewport(0, _viewport);
+            _screenSize = new Vector2(Graphics.Size.X, Graphics.Size.Y);
             _inputMap = Context.ResourceCache.GetResource<InputMap>("Input/MoveAndOrbit.inputmap");
             SetupPlayers();
             if (!team1.IsPlayer) _nowPlayer = false;
@@ -165,9 +187,12 @@ namespace ironballs
 
 
             //UI
-            ImGui.Begin("Info");
+            ImGui.SetNextWindowPos(new Vector2(_screenSize.X * 0.3f, _screenSize.Y * 0.85f));
+            ImGui.SetNextWindowSize(new Vector2(_screenSize.X * 0.4f, 75));
+            ImGui.Begin("Info",ref _info ,ImGuiWindowFlags.ImGuiWindowFlagsNoBackground | ImGuiWindowFlags.ImGuiWindowFlagsNoDecoration | ImGuiWindowFlags.ImGuiWindowFlagsNoDocking | ImGuiWindowFlags.ImGuiWindowFlagsNoResize);
             ImGui.Text(_activeTeam.Description);
-            ImGui.ProgressBar((_ballStr-0.5f)/2);
+            ImGui.ProgressBar((_ballStr - 0.5f) / 2);
+            //touchscreen debug
             //ImGui.Text(_touchBegin.ToString());
             //ImGui.Text(_touchDebug.ToString());
             ImGui.End();
@@ -193,7 +218,7 @@ namespace ironballs
             }
 
 
-            if (_cubeRb.Mass < 1 && team1.Balls.Count + team2.Balls.Count + team3.Balls.Count + team4.Balls.Count < 8)
+            if (_cube!=null && _cubeRb.Mass < 1 && team1.Balls.Count + team2.Balls.Count + team3.Balls.Count + team4.Balls.Count < 8)
             {
                 _cubeRb.Mass = 2;
                 _cubeRb.Restitution = 0.95f;
@@ -413,6 +438,11 @@ namespace ironballs
 
         public void RemoveBalls()
         {
+            if (_cube!=null && _cube.Position.Y < -2)
+            {
+                _cube.Remove();
+                _cube = null;
+            }
             foreach (var ball in team1.Balls.ToList())
             {
                 if (ball.Position.Y < -2)
