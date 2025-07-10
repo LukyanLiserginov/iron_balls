@@ -91,6 +91,14 @@ namespace ironballs
                         pos.Y = _arrowPosY[_arrowP]; 
                         _arrowNode.Position = pos;
                     }
+                    else
+                    {
+                        _arrowP = 3;
+                        var pos = _arrowNode.Position;
+                        pos.Y = _arrowPosY[_arrowP];
+                        _arrowNode.Position = pos;
+                    }
+                        
                         
                 }
             }
@@ -108,7 +116,14 @@ namespace ironballs
                         pos.Y = _arrowPosY[_arrowP];
                         _arrowNode.Position = pos;
                     }
-                        
+                    else
+                    {
+                        _arrowP = 0;
+                        var pos = _arrowNode.Position;
+                        pos.Y = _arrowPosY[_arrowP];
+                        _arrowNode.Position = pos;
+                    }
+
 
                 }
             }

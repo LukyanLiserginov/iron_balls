@@ -70,6 +70,8 @@ namespace ironballs
             {
                 _cube.Remove();
                 _cube = null;
+                if (MySetup.GameMode == 3)
+                    ChangeTable();
             }
             //balls to teams
             var temp = _scene.GetChildren();
@@ -111,7 +113,7 @@ namespace ironballs
         }
 
 
-        public void SetupPlayers()
+        private void SetupPlayers()
         {
             var maxPlayers = MySetup.Players;
             for (int i = 1; i <= maxPlayers; i++)
@@ -132,6 +134,26 @@ namespace ironballs
                         break;
                 }
             }
+        }
+
+        private void ChangeTable()
+        {
+            var t0 = _scene.FindChild("table0");
+            t0.IsEnabled = true;
+            var t0s = t0.GetChildren();
+            foreach (Node child in t0s)
+            {
+                child.IsEnabled = true;
+            }
+            
+            
+            var t1 = _scene.FindChild("table_27.05.2025");
+            var t1s = t1.GetChildren();
+            foreach (Node child in t1s)
+            {
+                child.IsEnabled = false;
+            }
+            t1.IsEnabled = false;
         }
 
         public override void Update(float timeStep)
@@ -200,25 +222,18 @@ namespace ironballs
 
         public void NextPlayer()
         {
-            int c = 0;
-            Team t = null;
-            if (team1.Balls.Count > 0) 
+            // Проверка победителя
+            var activeTeams = _teams.Where(t => t.Balls.Count > 0).ToList();
+            if (activeTeams.Count < 2)
             {
-                c++;
-                t = team1;
-            }
-            if (team2.Balls.Count > 0) { c++; t = team2; }
-            if (team3.Balls.Count > 0) { c++; t = team3; }
-            if (team4.Balls.Count > 0) {c++; t = team4; }
-            if (c < 2) 
-            { 
-                System.Console.WriteLine(t.ToString() + " is a winner"); 
+                System.Console.WriteLine(activeTeams.First().ToString() + " is a winner");
                 _app.HandleBackKey();
                 return;
             }
 
 
-            if (_cube!=null && _cubeRb.Mass < 1 && team1.Balls.Count + team2.Balls.Count + team3.Balls.Count + team4.Balls.Count < 8)
+            // Обновление куба (если есть)
+            if (_cube != null && _cubeRb.Mass < 1 && _teams.Sum(t => t.Balls.Count) < 8)
             {
                 _cubeRb.Mass = 2;
                 _cubeRb.Restitution = 0.95f;
@@ -438,41 +453,21 @@ namespace ironballs
 
         public void RemoveBalls()
         {
-            if (_cube!=null && _cube.Position.Y < -2)
+            if (_cube != null && _cube.Position.Y < -2)
             {
                 _cube.Remove();
                 _cube = null;
             }
-            foreach (var ball in team1.Balls.ToList())
+
+            foreach (var team in _teams)
             {
-                if (ball.Position.Y < -2)
+                foreach (var ball in team.Balls.ToList())
                 {
-                    team1.Balls.Remove(ball);
-                    ball.Remove();
-                }
-            }
-            foreach (var ball in team2.Balls.ToList())
-            {
-                if (ball.Position.Y < -2)
-                {
-                    team2.Balls.Remove(ball);
-                    ball.Remove();
-                }
-            }
-            foreach (var ball in team3.Balls.ToList())
-            {
-                if (ball.Position.Y < -2)
-                {
-                    team3.Balls.Remove(ball);
-                    ball.Remove();
-                }
-            }
-            foreach (var ball in team4.Balls.ToList())
-            {
-                if (ball.Position.Y < -2)
-                {
-                    team4.Balls.Remove(ball);
-                    ball.Remove();
+                    if (ball.Position.Y < -2)
+                    {
+                        team.Balls.Remove(ball);
+                        ball.Remove();
+                    }
                 }
             }
         }

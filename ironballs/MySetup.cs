@@ -24,7 +24,7 @@ namespace ironballs
             set
             {
                 if (value < 1) _gameMode = 1;
-                else if (value > 2) _gameMode = 2;
+                else if (value > 3) _gameMode = 3;
                 else _gameMode = value;
             }
         }
